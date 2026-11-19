@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Packing List BD &#x2014; Travel packing checklist for Bangladesh</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="pack" aria-hidden="true">&#x1f9f3;</span>
+    <div>
+      <h1 id="appTitle" data-i18n="appTitle">Packing List BD</h1>
+      <p id="appSub" data-i18n="appSub">Travel packing checklist for Bangladesh</p>
+    </div>
+  </div>
+  <button id="langBtn" class="lang-btn" type="button">&#x9ac;&#x9be;&#x982;&#x9b2;&#x9be;</button>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button class="tab active" data-tab="trips" role="tab" type="button" data-i18n="tabTrips">Trips</button>
+  <button class="tab" data-tab="pack" role="tab" type="button" data-i18n="tabPack">Packing List</button>
+  <button class="tab" data-tab="data" role="tab" type="button" data-i18n="tabData">Data</button>
+</nav>
+
+<main>
+  <!-- TRIPS -->
+  <section id="tab-trips" class="panel active">
+    <form id="tripForm" class="form-card" novalidate>
+      <h2 data-i18n="newTrip">New trip</h2>
+      <div class="grid2">
+        <label><span data-i18n="tripName">Trip name</span>
+          <input id="fName" maxlength="60" data-i18n-ph="tripNamePh" placeholder="e.g. Cox's Bazar family trip">
+          <small class="err" id="eName"></small></label>
+        <label><span data-i18n="destination">Destination</span>
+          <input id="fDest" maxlength="80" data-i18n-ph="destinationPh" placeholder="e.g. Cox's Bazar">
+          <small class="err" id="eDest"></small></label>
+        <label><span data-i18n="tripType">Trip type</span>
+          <select id="fType"></select></label>
+        <span></span>
+        <label><span data-i18n="startDate">Start date</span>
+          <input id="fStart" type="date">
+          <small class="err" id="eDates"></small></label>
+        <label><span data-i18n="endDate">End date</span>
+          <input id="fEnd" type="date"></label>
+      </div>
+      <button class="btn primary" type="submit" data-i18n="createTrip">Create trip &amp; build list</button>
+    </form>
+    <h2 data-i18n="tabTrips">Trips</h2>
+    <p id="noTrips" class="muted" data-i18n="noTrips">No trips yet &#x2014; create your first trip above.</p>
+    <div id="tripList" class="trip-list"></div>
+  </section>
+
+  <!-- PACKING LIST -->
+  <section id="tab-pack" class="panel">
+    <p id="noActiveTrip" class="muted" data-i18n="noActiveTrip">Pick a trip from the Trips tab to see its packing list.</p>
+    <div id="packWrap" hidden>
+      <div class="pack-head">
+        <div>
+          <h2 id="packTripName">&#x2014;</h2>
+          <p id="packTripMeta" class="muted">&#x2014;</p>
+        </div>
+        <div class="pack-actions">
+          <button id="printBtn" class="btn" type="button" data-i18n="printList">Print list</button>
+          <button id="resetBtn" class="btn danger-outline" type="button" data-i18n="resetList">Reset list</button>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        <strong id="progressText">0 / 0</strong>
+      </div>
+      <p id="allPacked" class="all-packed" hidden data-i18n="allPacked">All packed! Have a great trip.</p>
+      <div id="catGroups"></div>
+      <form id="customForm" class="form-card" novalidate>
+        <h2 data-i18n="addCustom">Add your own item</h2>
+        <div class="grid3">
+          <label><span data-i18n="itemName">Item name</span>
+            <input id="cName" maxlength="80" data-i18n-ph="itemNamePh" placeholder="e.g. Sunglasses case">
+            <small class="err" id="eItemName"></small></label>
+          <label><span data-i18n="category">Category</span>
+            <select id="cCat"></select></label>
+          <label><span data-i18n="qty">Qty</span>
+            <input id="cQty" type="number" min="1" max="99" value="1"></label>
+        </div>
+        <button class="btn primary" type="submit" data-i18n="add">Add</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- DATA -->
+  <section id="tab-data" class="panel">
+    <div class="form-card">
+      <h2 data-i18n="exportTitle">Export / import</h2>
+      <p class="muted" data-i18n="exportHint">Download a backup of all your trips, or paste one back in.</p>
+      <button id="exportBtn" class="btn primary" type="button" data-i18n="exportBtn">Download backup (JSON)</button>
+      <textarea id="importBox" rows="6" data-i18n-ph="importPh" placeholder="Paste a backup JSON here&#x2026;"></textarea>
+      <div class="row">
+        <button id="importBtn" class="btn" type="button" data-i18n="importBtn">Import backup</button>
+        <span id="importMsg" class="msg" role="status"></span>
+      </div>
+    </div>
+    <div class="form-card danger-card">
+      <h2 data-i18n="eraseTitle">Erase everything</h2>
+      <p class="muted" data-i18n="eraseHint">Type DELETE in the box to erase all trips and packing lists.</p>
+      <div class="row">
+        <input id="eraseBox" maxlength="10" placeholder="DELETE" autocomplete="off">
+        <button id="eraseBtn" class="btn danger" type="button" data-i18n="eraseBtn">Erase all</button>
+      </div>
+      <span id="eraseMsg" class="msg" role="status"></span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p data-i18n="disclaimer">Offline personal tool. Check travel documents, bookings and baggage rules yourself before you travel.</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
